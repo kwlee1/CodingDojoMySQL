@@ -1,0 +1,79 @@
+1) 
+SELECT city.city_id, city, first_name, last_name, email, address 
+FROM city
+
+JOIN address ON city.city_id = address.city_id 
+
+JOIN customer ON address.address_id = customer.address_id
+
+WHERE city.city_id = 312
+
+2)
+SELECT film.film_id, title, description, release_year, rating, special_features, category.name AS genre 
+FROM film
+
+JOIN film_category ON film.film_id = film_category.film_id
+
+JOIN category ON film_category.category_id = category.category_id
+
+WHERE category.name = 'Comedy' 
+
+3)
+SELECT actor.actor_id, concat(first_name, " ", last_name) AS actor_name, film.film_id, film.title, film.description, film.release_year 
+FROM film
+
+JOIN film_actor ON film.film_id = film_actor.film_id 
+
+JOIN actor ON film_actor.actor_id = actor.actor_id
+
+WHERE actor.actor_id = 5
+
+4)
+SELECT store_id, city_id, first_name, last_name, email, address 
+FROM customer
+
+JOIN address ON customer.address_id = address.address_id
+
+WHERE store_id = 1 AND (city_id = 1 OR city_id = 42 OR city_id = 312 OR city_id = 459)
+
+5) 
+SELECT title, description, release_year, rating, special_features 
+FROM film
+
+JOIN film_actor ON film.film_id = film_actor.film_id 
+
+WHERE special_features LIKE '%Behind the Scenes%' AND rating = 'G' AND actor_id = 15
+
+6)
+SELECT film.film_id, title, actor.actor_id, CONCAT(first_name, " ", last_name) AS actor_name, actor.last_update 
+FROM film 
+
+JOIN film_actor ON film.film_id = film_actor.film_id
+
+JOIN actor ON film_actor.actor_id = actor.actor_id
+
+WHERE film.film_id = 369
+
+7)
+SELECT film.film_id, title, description, release_year, rating, special_features, category.name AS genre 
+FROM film
+
+JOIN film_category ON film.film_id = film_category.film_id
+
+JOIN category ON film_category.category_id = category.category_id
+
+WHERE rental_rate = 2.99 AND category.name = "Drama" 
+
+8)
+SELECT actor.actor_id, CONCAT(first_name, " ", last_name) AS actor_name, film.film_id, title, description, release_year, rating, category.name AS genre 
+FROM film
+
+JOIN film_category ON film.film_id = film_category.film_id
+
+JOIN category ON film_category.category_id = category.category_id
+
+JOIN film_actor ON film.film_id = film_actor.film_id 
+
+JOIN actor ON film_actor.actor_id = actor.actor_id 
+
+WHERE actor.actor_id = 23 AND category.name = 'Action'
