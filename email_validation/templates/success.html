@@ -1,0 +1,19 @@
+<html>
+    <head>
+      <title>Email Validation</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h2>Email Addresses Entered:</h2>
+        <p id='success'>The email you entered ({{new_email}}) is a VALID email address! Thank you!)</p>
+        <table>
+        {% for email in emails: %}
+            <tr>
+                <td>{{ email['email'] }}</td>
+                <td>{{ email['date'].strftime("%b %d %Y %X") }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </body>
+</html>
+    
