@@ -1,0 +1,95 @@
+1)
+SELECT monthname(charged_datetime) as month, sum(amount) as revenue 
+FROM billing
+
+WHERE charged_datetime BETWEEN "2012-03-01" AND "2012-03-31" 
+
+2)
+SELECT client_id, sum(amount) as total_revenue 
+FROM billing
+
+WHERE client_id = 2
+
+3)
+SELECT domain_name AS website, client_id FROM sites
+
+WHERE client_id = 10
+
+
+4)
+SELECT client_id, COUNT(domain_name) AS number_of_websites, MONTHNAME(created_datetime) as month_created, year(created_datetime) as year_created
+
+FROM sites
+
+WHERE client_id = 1
+
+GROUP BY created_datetime
+
+**change client_id to check other clients**
+
+5)
+SELECT domain_name AS website, sites.site_id, count(sites.site_id) AS num_leads, date(registered_datetime) AS date_generated
+
+FROM leads
+
+JOIN sites ON leads.site_id = sites.site_id
+
+WHERE registered_datetime BETWEEN "2011-01-01" AND "2011-02-15"
+
+GROUP BY site_id
+
+6)
+SELECT CONCAT(clients.first_name, " ", clients.last_name) AS client_name, count(leads_id) AS number_of_leads 
+FROM leads
+
+JOIN sites ON leads.site_id = sites.site_id
+
+JOIN clients ON sites.client_id = clients.client_id
+
+WHERE registered_datetime BETWEEN "2011-01-01" AND "2011-12-31"
+GROUP BY clients.client_id
+
+
+7)
+SELECT CONCAT(clients.first_name, " ", clients.last_name) AS client_name, count(leads_id), monthname(registered_datetime) AS month_generated 
+FROM leads
+
+JOIN sites ON leads.site_id = sites.site_id
+
+JOIN clients ON sites.client_id = clients.client_id
+
+WHERE month(leads.registered_datetime) < 7 AND year(leads.registered_datetime) = 2011
+
+GROUP BY client_name,  monthname(leads.registered_datetime)
+ORDER BY month(leads.registered_datetime)
+
+
+8)
+SELECT CONCAT(clients.first_name, " ", clients.last_name) AS client_name, domain_name AS website, count(leads_id) AS number_of_leads, registered_datetime AS date_generated 
+FROM leads
+
+JOIN sites ON leads.site_id = sites.site_id
+
+JOIN clients ON sites.client_id = clients.client_id
+
+WHERE year(leads.registered_datetime) = 2011
+
+GROUP BY client_name, website
+
+**remove WHERE line for all time results**
+
+9)
+SELECT CONCAT(clients.first_name, " ", clients.last_name) AS client_name, amount AS Total_Revenue, monthname(charged_datetime) AS month_charge, year(charged_datetime) AS year_charge 
+FROM billing
+
+JOIN clients ON billing.client_id = clients.client_id
+
+GROUP BY client_name, year(charged_datetime), month(charged_datetime)
+
+10)
+SELECT CONCAT(clients.first_name, " ", clients.last_name) AS client_name, group_concat(DOMAIN_NAME,"/") AS sites 
+FROM sites
+
+JOIN clients ON sites.client_id = clients.client_id 
+
+GROUP BY client_name
