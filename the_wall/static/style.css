@@ -1,0 +1,22 @@
+#reg{
+    display: inline-block;
+    height: auto;
+    width: 500px; 
+    vertical-align: top; 
+}
+#log{
+    display: inline-block;
+    height: auto;
+    width: 500px;
+    vertical-align: top; 
+}
+#head{
+    width: 100%;
+    height: auto; 
+    border: 1px solid black; 
+    background-color: blue; 
+    color: white; 
+}
+#postbutton{
+    margin-top: 5px; 
+}

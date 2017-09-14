@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Wall</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div id='reg'>
+            <h2>Registration</h2>
+            {% with messages = get_flashed_messages(category_filter = ['reg']) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action='/registration' method='POST'>
+                <label for="fn">First Name: <input type="text" name="fn" id="fn"></label><br>
+                <label for="ln">Last Name: <input type="text" name="ln" id="ln"></label><br>
+                <label for="email">Email Address: <input type="text" name="email" id="email"></label><br>
+                <label for="pw">Password: <input type="password" name="pw" id="pw"></label><br>
+                <label for="cpw">Confirm Password: <input type="password" name="cpw" id="cpw"></label><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div id='log'>
+                <h2>Login</h2>
+                {% with messages = get_flashed_messages(category_filter = ['login']) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action='/login' method='POST'>
+                    <label for="logemail">Email Address: <input type="text" name="logemail" id="logemail"></label><br>
+                    <label for="logpw">Password: <input type="password" name="logpw" id="logpw"></label><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+    </body>
+</html>

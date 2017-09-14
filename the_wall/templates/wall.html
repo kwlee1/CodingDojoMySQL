@@ -1,0 +1,41 @@
+<html>
+        <head>
+            <title>The Wall</title>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        </head>
+        <body>
+            <div id='head'>
+                <h1>CodingDojo Wall</h1>
+                <h4>Welcome {{ user }}</h4>
+                <form action='/logout'><input id='logout' type='submit' value='log out'></form>
+            </div>
+            <div id='postmess'>
+                <h2>Post a message:</h2>
+                <form action='/postmess' method='POST'>
+                    <textarea name='themessage' id='themessage' rows='5' cols=100%></textarea><br>
+                    <input id='postbutton' type="submit" value="Post a message">
+                </form>
+            </div><br>
+            {% for message in messages %}
+                <div class='message'>
+                    <h4>{{ message['first_name'] + " " + message['last_name'] + " - " + message['updated_at'].strftime('%B %d %Y %X') }}</h4>
+                    <p>{{ message['message'] }}</p>
+                    <p>Comments:</p><br>
+                    {% for comment in comments %}
+                    <div class = 'comment'>
+                        {% if comment['message_id'] == message['message_id'] %}
+                        <h5>{{ comment['first_name'] + " " + comment['last_name'] + " - " + comment['updated_at'].strftime('%B %d %Y %X') }}</h5>
+                        <p>{{ comment['comment'] }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <form action='/postcomm' method='POST'>
+                        <textarea name='thecomm' id='thecomm' rows='4' cols=60%></textarea><br>
+                        <input type = 'hidden' name='messageID' value = {{ message['message_id']}}>
+                        <input id='commbutton' type="submit" value="Post a comment">
+                    </form>
+                </div><br>
+            {% endfor %}
+        </body>
+    </html>
+        
